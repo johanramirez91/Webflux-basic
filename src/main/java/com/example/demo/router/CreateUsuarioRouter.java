@@ -2,6 +2,7 @@ package com.example.demo.router;
 
 import com.example.demo.collection.Usuario;
 import com.example.demo.usecase.CreateUsuario;
+import com.example.demo.usecase.DeleteUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,14 @@ public class CreateUsuarioRouter {
                         .onErrorResume(throwable -> {
                             throw new RuntimeException("Bad request", throwable);
                         }));
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> deleteUser(DeleteUser deleteUser){
+        return route()
+                .DELETE("/{id}", request -> {
+                    String id = request.pathVariable("id");
+                    return ServerResponse.ok().body(deleteUser.delete(id), Void.class);
+                }).build();
     }
 }

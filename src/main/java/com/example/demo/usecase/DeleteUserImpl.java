@@ -1,19 +1,18 @@
 package com.example.demo.usecase;
 
-import com.example.demo.collection.Usuario;
 import com.example.demo.repository.RepositorioUsuario;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-@Service
 @AllArgsConstructor
-public class CreateUsuarioImpl implements CreateUsuario{
+@Service
+public class DeleteUserImpl implements DeleteUser{
 
     private final RepositorioUsuario repositorioUsuario;
 
     @Override
-    public Mono<Usuario> create(Usuario usuario) {
-        return repositorioUsuario.save(usuario);
+    public Mono<Void> delete(String id) {
+        return repositorioUsuario.deleteById(id);
     }
 }
